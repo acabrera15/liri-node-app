@@ -1,0 +1,63 @@
+require("dotenv").config();
+var keys = require("./keys");
+var axios = require('axios')
+var moment = require('moment');
+var Spotify = require("node-spotify-api");
+var spotify = new Spotify(keys.spotify);
+var operation = process.argv[2];
+var operand = "";
+
+//creates string from input argument
+for (var i = 3; i < process.argv.length; i++) {
+  operand += process.argv[i] + " ";
+}
+
+/*
+    Searches a track from the Spotify API and outputs the Artist, song name,
+    A preview link of the song from Spotify, and the song album
+*/
+var searchSpotify = function(track) {
+  spotify.search({ type: "track", query: track }, function(err, data) {
+    if (err) {
+      return console.log("Error occurred: " + err);
+    }
+    console.log(`Artist: ${data.tracks.items[0].artists[0].name}`);
+    console.log(`Song: ${track}`);
+    console.log(`Album: ${data.tracks.items[0].album.name}`);
+    console.log(`Preview URL: ${data.tracks.items[0].preview_url}`);
+  });
+};
+
+var searchBandsInTownForConcerts = function(artist) {
+    axios.get(`https://rest.bandsintown.com/artists/${artist}/events?app_id=codingbootcamp`)
+    .then(function(res) {
+        var concerts = res.data;
+        
+        concerts.forEach(show => {
+            console.log("Venue: " + show.venue.name);
+            console.log("Venue Location: " + show.venue.city);
+            console.log("Date: " + moment(show.datetime).format("MM/DD/YYYY"))
+            console.log()
+            console.log('-------------------------------------------------')
+            console.log()
+        });
+        
+    })
+    .catch(function(error) {
+        console.log(error);
+    })
+};
+
+var OMDBQuery = function(movie) {
+    axios.get(`http://www.omdbapi.com/?apikey=trilogy&t=${movie}`)
+    .then(function(response) {
+        console.log(response.data)
+    })
+    .catch(function(error) {
+        console.log(error);
+    })
+}
+
+// searchSpotify(operand);
+// searchBandsInTownForConcerts('circa survive')
+OMDBQuery('The Rundown')
