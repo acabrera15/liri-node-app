@@ -51,7 +51,14 @@ var searchBandsInTownForConcerts = function(artist) {
 var OMDBQuery = function(movie) {
     axios.get(`http://www.omdbapi.com/?apikey=trilogy&t=${movie}`)
     .then(function(response) {
-        console.log(response.data)
+        console.log(`* Title: ${response.data.Title}`);
+        console.log(`* Year: ${response.data.Year}`);
+        console.log(`* IMDB Rating: ${response.data.imdbRating}`);
+        console.log(`* Rotten Tomatoes Rating: ${response.data.Ratings[1].Value}`);
+        console.log(`* Country where movie was produced: ${response.data.Country}`);
+        console.log(`* Language: ${response.data.Language}`);
+        console.log(`* Plot: ${response.data.Plot}`);
+        console.log(`* Actors: ${response.data.Actors}`);
     })
     .catch(function(error) {
         console.log(error);
