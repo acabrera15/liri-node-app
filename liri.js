@@ -6,6 +6,7 @@ var Spotify = require("node-spotify-api");
 var spotify = new Spotify(keys.spotify);
 var operation = process.argv[2];
 var operand = "";
+var fs = require("fs");
 
 //creates string from input argument
 for (var i = 3; i < process.argv.length; i++) {
@@ -73,30 +74,40 @@ var OMDBQuery = function(movie) {
 };
 
 var doWhatItSay = function() {
-  var fs = require("fs");
   fs.readFile("./random.txt", "UTF-8", function(err, data) {
     if (err) return console.log(err);
     var textArray = data.split(",");
-    console.log(textArray);
     operation = textArray[0];
     operand = textArray[1];
     performOperation();
   });
 };
 
+var appendFunctionToFile = function() {
+  fs.appendFile("./log.txt", operation + " " + operand + '\n', function(err) {
+    if (err) return console.log(err);
+  });
+};
+
 var performOperation = function() {
   if (operation === "concert-this" && operand != "") {
     searchBandsInTownForConcerts(operand.trim());
+    appendFunctionToFile();
   } else if (operation === "spotify-this-song" && operand != "") {
-    searchSpotify(operand);
+    searchSpotify(operand.trim());
+    appendFunctionToFile();
   } else if (operation === "movie-this") {
     if (operand === "") {
       OMDBQuery("Mr.nobody");
+      appendFunctionToFile();
     } else {
-      OMDBQuery(operand);
+      OMDBQuery(operand.trim());
+      appendFunctionToFile();
     }
   } else if (operation === "do-what-it-says") {
+    appendFunctionToFile();
     doWhatItSay();
+    appendFunctionToFile();
   } else {
   }
 };
