@@ -29,6 +29,10 @@ var searchSpotify = function(track) {
   });
 };
 
+/*
+    Uses The Bands in Town APi to search and output information 
+    of upciming artist shows
+*/
 var searchBandsInTownForConcerts = function(artist) {
   axios
     .get(
@@ -51,6 +55,10 @@ var searchBandsInTownForConcerts = function(artist) {
     });
 };
 
+/*
+    Uses the OMDB API ouput information related to 
+    related movie
+*/
 var OMDBQuery = function(movie) {
   axios
     .get(`http://www.omdbapi.com/?apikey=trilogy&t=${movie}`)
@@ -73,6 +81,10 @@ var OMDBQuery = function(movie) {
     });
 };
 
+/*
+    reads in the command and argument in the random.txt
+    to create a new request
+*/
 var doWhatItSay = function() {
   fs.readFile("./random.txt", "UTF-8", function(err, data) {
     if (err) return console.log(err);
@@ -83,12 +95,19 @@ var doWhatItSay = function() {
   });
 };
 
+/*
+    appends the operation and the operand to the log.txt file
+*/
 var appendFunctionToFile = function() {
-  fs.appendFile("./log.txt", operation + " " + operand + '\n', function(err) {
+  fs.appendFile("./log.txt", operation + " " + operand + "\n", function(err) {
     if (err) return console.log(err);
   });
 };
 
+/*
+    performs the correct operation that the user has input with 
+    error checking
+ */
 var performOperation = function() {
   if (operation === "concert-this" && operand != "") {
     searchBandsInTownForConcerts(operand.trim());
@@ -104,11 +123,17 @@ var performOperation = function() {
       OMDBQuery(operand.trim());
       appendFunctionToFile();
     }
-  } else if (operation === "do-what-it-says") {
+  } else if (operation === "movie-this") {
     appendFunctionToFile();
     doWhatItSay();
     appendFunctionToFile();
   } else {
+      console.log("Please enter a usable command");
+      console.log("You options are: ");
+      console.log("concert-this");
+      console.log("spotify-this-song");
+      console.log("movie-this");
+      console.log("movie-this");
   }
 };
 
