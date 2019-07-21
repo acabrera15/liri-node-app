@@ -72,20 +72,33 @@ var OMDBQuery = function(movie) {
     });
 };
 
-// searchSpotify(operand);
-// searchBandsInTownForConcerts('circa survive')
-// OMDBQuery('The Rundown')
+var doWhatItSay = function() {
+  var fs = require("fs");
+  fs.readFile("./random.txt", "UTF-8", function(err, data) {
+    if (err) return console.log(err);
+    var textArray = data.split(",");
+    console.log(textArray);
+    operation = textArray[0];
+    operand = textArray[1];
+    performOperation();
+  });
+};
 
-if (operation === "concert-this" && operand != "") {
-  searchBandsInTownForConcerts(operand.trim());
-} else if (operation === "spotify-this-song" && operand != "") {
-  searchSpotify(operand);
-} else if (operation === "movie-this") {
-  if (operand === "") {
-    OMDBQuery("Mr.nobody");
+var performOperation = function() {
+  if (operation === "concert-this" && operand != "") {
+    searchBandsInTownForConcerts(operand.trim());
+  } else if (operation === "spotify-this-song" && operand != "") {
+    searchSpotify(operand);
+  } else if (operation === "movie-this") {
+    if (operand === "") {
+      OMDBQuery("Mr.nobody");
+    } else {
+      OMDBQuery(operand);
+    }
+  } else if (operation === "do-what-it-says") {
+    doWhatItSay();
   } else {
-    OMDBQuery(operand);
   }
-} else if (operation === "do-what-it-says") {
-} else {
-}
+};
+
+performOperation();
