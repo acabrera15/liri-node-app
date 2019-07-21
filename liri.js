@@ -1,7 +1,7 @@
 require("dotenv").config();
 var keys = require("./keys");
-var axios = require('axios')
-var moment = require('moment');
+var axios = require("axios");
+var moment = require("moment");
 var Spotify = require("node-spotify-api");
 var spotify = new Spotify(keys.spotify);
 var operation = process.argv[2];
@@ -29,42 +29,63 @@ var searchSpotify = function(track) {
 };
 
 var searchBandsInTownForConcerts = function(artist) {
-    axios.get(`https://rest.bandsintown.com/artists/${artist}/events?app_id=codingbootcamp`)
+  axios
+    .get(
+      `https://rest.bandsintown.com/artists/${artist}/events?app_id=codingbootcamp`
+    )
     .then(function(res) {
-        var concerts = res.data;
-        
-        concerts.forEach(show => {
-            console.log("Venue: " + show.venue.name);
-            console.log("Venue Location: " + show.venue.city);
-            console.log("Date: " + moment(show.datetime).format("MM/DD/YYYY"))
-            console.log()
-            console.log('-------------------------------------------------')
-            console.log()
-        });
-        
+      var concerts = res.data;
+
+      concerts.forEach(show => {
+        console.log("Venue: " + show.venue.name);
+        console.log("Venue Location: " + show.venue.city);
+        console.log("Date: " + moment(show.datetime).format("MM/DD/YYYY"));
+        console.log();
+        console.log("-------------------------------------------------");
+        console.log();
+      });
     })
     .catch(function(error) {
-        console.log(error);
-    })
+      console.log(error);
+    });
 };
 
 var OMDBQuery = function(movie) {
-    axios.get(`http://www.omdbapi.com/?apikey=trilogy&t=${movie}`)
+  axios
+    .get(`http://www.omdbapi.com/?apikey=trilogy&t=${movie}`)
     .then(function(response) {
-        console.log(`* Title: ${response.data.Title}`);
-        console.log(`* Year: ${response.data.Year}`);
-        console.log(`* IMDB Rating: ${response.data.imdbRating}`);
-        console.log(`* Rotten Tomatoes Rating: ${response.data.Ratings[1].Value}`);
-        console.log(`* Country where movie was produced: ${response.data.Country}`);
-        console.log(`* Language: ${response.data.Language}`);
-        console.log(`* Plot: ${response.data.Plot}`);
-        console.log(`* Actors: ${response.data.Actors}`);
+      console.log(`* Title: ${response.data.Title}`);
+      console.log(`* Year: ${response.data.Year}`);
+      console.log(`* IMDB Rating: ${response.data.imdbRating}`);
+      console.log(
+        `* Rotten Tomatoes Rating: ${response.data.Ratings[1].Value}`
+      );
+      console.log(
+        `* Country where movie was produced: ${response.data.Country}`
+      );
+      console.log(`* Language: ${response.data.Language}`);
+      console.log(`* Plot: ${response.data.Plot}`);
+      console.log(`* Actors: ${response.data.Actors}`);
     })
     .catch(function(error) {
-        console.log(error);
-    })
-}
+      console.log(error);
+    });
+};
 
 // searchSpotify(operand);
 // searchBandsInTownForConcerts('circa survive')
-OMDBQuery('The Rundown')
+// OMDBQuery('The Rundown')
+
+if (operation === "concert-this" && operand != "") {
+  searchBandsInTownForConcerts(operand.trim());
+} else if (operation === "spotify-this-song" && operand != "") {
+  searchSpotify(operand);
+} else if (operation === "movie-this") {
+  if (operand === "") {
+    OMDBQuery("Mr.nobody");
+  } else {
+    OMDBQuery(operand);
+  }
+} else if (operation === "do-what-it-says") {
+} else {
+}
