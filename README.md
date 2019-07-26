@@ -6,7 +6,7 @@ There is also a Liri feature that performs one of the available tasks read from
 an external file.
 
 The Application works off of three commands:
-    * movie-this : gets movie information from input movie title
-    * spotify-this-song : gets song information from the input song
-    * do-what-it-says : uses the external file to create perform the above functions
+* movie-this : gets movie information from input movie title
+* spotify-this-song : gets song information from the input song
+* do-what-it-says : uses the external file to create perform the above functions
 
