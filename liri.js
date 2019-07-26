@@ -120,7 +120,7 @@ var performOperation = function() {
       OMDBQuery(operand.trim());
       appendFunctionToFile();
     }
-  } else if (operation === "movie-this") {
+  } else if (operation === "do-what-it-says") {
     appendFunctionToFile();
     doWhatItSay();
     appendFunctionToFile();
@@ -129,7 +129,7 @@ var performOperation = function() {
     console.log("You options are: ");
     console.log("spotify-this-song");
     console.log("movie-this");
-    console.log("movie-this");
+    console.log("do-what-it-says");
   }
 };
 
