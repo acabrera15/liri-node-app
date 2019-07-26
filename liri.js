@@ -1,7 +1,7 @@
 require("dotenv").config();
 var keys = require("./keys");
 var axios = require("axios");
-var moment = require("moment");
+// var moment = require("moment");
 var Spotify = require("node-spotify-api");
 var spotify = new Spotify(keys.spotify);
 var operation = process.argv[2];
@@ -33,27 +33,27 @@ var searchSpotify = function(track) {
     Uses The Bands in Town APi to search and output information 
     of upciming artist shows
 */
-var searchBandsInTownForConcerts = function(artist) {
-  axios
-    .get(
-      `https://rest.bandsintown.com/artists/${artist}/events?app_id=codingbootcamp`
-    )
-    .then(function(res) {
-      var concerts = res.data;
+// var searchBandsInTownForConcerts = function(artist) {
+//   axios
+//     .get(
+//       `https://rest.bandsintown.com/artists/${artist}/events?app_id=codingbootcamp`
+//     )
+//     .then(function(res) {
+//       var concerts = res.data;
 
-      concerts.forEach(show => {
-        console.log("Venue: " + show.venue.name);
-        console.log("Venue Location: " + show.venue.city);
-        console.log("Date: " + moment(show.datetime).format("MM/DD/YYYY"));
-        console.log();
-        console.log("-------------------------------------------------");
-        console.log();
-      });
-    })
-    .catch(function(error) {
-      console.log(error);
-    });
-};
+//       concerts.forEach(show => {
+//         console.log("Venue: " + show.venue.name);
+//         console.log("Venue Location: " + show.venue.city);
+//         console.log("Date: " + moment(show.datetime).format("MM/DD/YYYY"));
+//         console.log();
+//         console.log("-------------------------------------------------");
+//         console.log();
+//       });
+//     })
+//     .catch(function(error) {
+//       console.log(error);
+//     });
+// };
 
 /*
     Uses the OMDB API ouput information related to 
@@ -109,10 +109,7 @@ var appendFunctionToFile = function() {
     error checking
  */
 var performOperation = function() {
-  if (operation === "concert-this" && operand != "") {
-    searchBandsInTownForConcerts(operand.trim());
-    appendFunctionToFile();
-  } else if (operation === "spotify-this-song" && operand != "") {
+  if (operation === "spotify-this-song" && operand != "") {
     searchSpotify(operand.trim());
     appendFunctionToFile();
   } else if (operation === "movie-this") {
@@ -128,12 +125,11 @@ var performOperation = function() {
     doWhatItSay();
     appendFunctionToFile();
   } else {
-      console.log("Please enter a usable command");
-      console.log("You options are: ");
-      console.log("concert-this");
-      console.log("spotify-this-song");
-      console.log("movie-this");
-      console.log("movie-this");
+    console.log("Please enter a usable command");
+    console.log("You options are: ");
+    console.log("spotify-this-song");
+    console.log("movie-this");
+    console.log("movie-this");
   }
 };
 
