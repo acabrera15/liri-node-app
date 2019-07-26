@@ -6,3 +6,9 @@ spotify-this-song Splash
 spotify-this-song Splash 
 movie-this The Rundown 
 movie-this 
+do-what-it-says 
+do-what-it-says 
+spotify-this-song "I Want it That Way"
+do-what-it-says 
+do-what-it-says 
+spotify-this-song "I Want it That Way"

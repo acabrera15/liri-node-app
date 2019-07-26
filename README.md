@@ -37,3 +37,11 @@ will return:
 
 if no movie argument is passed, OMDB will get results for "Mr.Nobody
 ![Alt text](./readmeScreenshots/noMovieArg.png?raw=true "liri.js prompts lists out options")
+
+
+do-what-it-says
+will get the command and argument in the random.txt file
+![Alt text](./readmeScreenshots/doWhatItSays.png?raw=true "liri.js prompts lists out options")
+
+all previous commands are stored in the log.txt file
+
