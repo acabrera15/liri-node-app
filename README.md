@@ -11,4 +11,4 @@ The Application works off of three commands:
 * do-what-it-says : uses the external file to create perform the above functions
 
 
-![Alt text](./readmeScreenshots/List_commands.png)
+![Alt text](./readmeScreenshots/List_commands.png?raw=true "liri.js prompts lists out options")
