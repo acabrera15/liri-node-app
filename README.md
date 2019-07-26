@@ -10,3 +10,5 @@ The Application works off of three commands:
 * spotify-this-song : gets song information from the input song
 * do-what-it-says : uses the external file to create perform the above functions
 
+
+![Alt text](./readmeScreenshots/List_commands.png)
