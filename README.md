@@ -5,6 +5,11 @@ The Application uses Axios to perform the HTTP requests from Spotify and OMDB.
 There is also a Liri feature that performs one of the available tasks read from
 an external file.
 
+this application requires the installation of 
+* axios
+* node-spotify-api
+* dotenv
+
 The Application works off of three commands:
 * movie-this : gets movie information from input movie title
 * spotify-this-song : gets song information from the input song
